@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "702112616884",
+    "firebase_url": "https://imccodesa-51dab.firebaseio.com",
+    "project_id": "imccodesa-51dab",
+    "storage_bucket": "imccodesa-51dab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702112616884:android:1bb015d0b5715626",
+        "android_client_info": {
+          "package_name": "co.com.codesa.imccodesa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702112616884-m5m47taea7pa12fspadbto1i4cknglgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.com.codesa.imccodesa",
+            "certificate_hash": "B167B863705A50EC562A3ACA34A4C04E3BB7820A"
+          }
+        },
+        {
+          "client_id": "702112616884-vv7585huatr2irj1vsli7i7c574mf3ib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNcems7gKbSX23ISYaiRTkGktYwsrrFjk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702112616884-vv7585huatr2irj1vsli7i7c574mf3ib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">imccodesa</string>
+    <string name="txt_login_usuario">E-mail</string>
+    <string name="txt_login_password">Contraseña</string>
+    <string name="btn_login_ingresar">Ingresar</string>
+    <string name="btn_login_crearcuenta">Crear Cuenta</string>
+    <string name="txt_registro_nombre">Nombres</string>
+    <string name="txt_registro_password">Contraseña</string>
+    <string name="txt_registro_usuario">E-mail</string>
+    <string name="btn_registro_crearcuenta">Crear Cuenta</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
