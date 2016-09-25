@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">imccodesa</string>
+    <string name="app_name">IMC Codesa</string>
     <string name="txt_login_usuario">E-mail</string>
     <string name="txt_login_password">Contraseña</string>
     <string name="btn_login_ingresar">Ingresar</string>
@@ -9,4 +9,13 @@
     <string name="txt_registro_usuario">E-mail</string>
     <string name="btn_registro_crearcuenta">Crear Cuenta</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_lista">ListaActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
