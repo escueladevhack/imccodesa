@@ -1,7 +1,9 @@
 package co.com.codesa.imccodesa.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -55,7 +57,7 @@ public class AutenticacionFragment extends Fragment {
 
         progress = ProgressDialog.show(getContext(), "Procesando", "Comprobando datos de ingreso...");
 
-        String email = txtLoginUsuario.getText().toString().trim();
+        final String email = txtLoginUsuario.getText().toString().trim();
         String password = txtLoginPassword.getText().toString().trim();
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -65,8 +67,15 @@ public class AutenticacionFragment extends Fragment {
                         Log.d(RegistroFragment.class.getName(), "Resultado Log In : " + task.isSuccessful());
 
                         if (task.isSuccessful()) {
+                            SharedPreferences sp = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean("isActived", true);
+                            editor.putString("email", email);
+                            editor.commit();
+
                             Intent intent = new Intent(getContext(), ListaActivity.class);
                             startActivity(intent);
+                            getActivity().finish();
                         } else {
                             Toast.makeText(getContext(), task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();

@@ -1,7 +1,9 @@
 package co.com.codesa.imccodesa.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +31,9 @@ public class RegistroFragment extends Fragment {
     private FirebaseAuth mAuth;
     private ProgressDialog progress;
 
+    @Bind(R.id.txtRegistroNombre)
+    EditText txtRegistroNombre;
+
     @Bind(R.id.txtRegistroUsuario)
     EditText txtRegistroUsuario;
 
@@ -40,7 +45,7 @@ public class RegistroFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_registro, null);
+        View view = inflater.inflate(R.layout.fragment_registro, null);
 
         ButterKnife.bind(this, view);
 
@@ -53,6 +58,8 @@ public class RegistroFragment extends Fragment {
     public void clickRegistroCrearCuenta() {
 
         progress = ProgressDialog.show(getContext(), "Procesando", "Creando la cuenta..");
+        final String email = txtRegistroUsuario.getText().toString();
+        final String username = txtRegistroNombre.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(txtRegistroUsuario.getText().toString(),
                 txtRegistroPassword.getText().toString())
@@ -62,8 +69,16 @@ public class RegistroFragment extends Fragment {
                         Log.d(RegistroFragment.class.getName(), "Tarea completa: " + task.isSuccessful());
 
                         if (task.isSuccessful()) {
+                            SharedPreferences sp = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean("isActived", true);
+                            editor.putString("email", email);
+                            editor.putString("username", username);
+                            editor.commit();
+
                             Intent intent = new Intent(getContext(), ListaActivity.class);
                             startActivity(intent);
+                            getActivity().finish();
                         } else {
                             Toast.makeText(getContext(), task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();

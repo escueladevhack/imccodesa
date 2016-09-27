@@ -1,5 +1,7 @@
 package co.com.codesa.imccodesa.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import co.com.codesa.imccodesa.R;
 import co.com.codesa.imccodesa.fragments.HistorialFragment;
@@ -45,6 +48,16 @@ public class ListaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView lblUserName = (TextView) headerView.findViewById(R.id.lblUserName);
+        TextView lblEmail = (TextView) headerView.findViewById(R.id.lblEmail);
+
+        SharedPreferences sp = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        lblUserName.setText(sp.getString("username", ""));
+        lblEmail.setText(sp.getString("email", ""));
     }
 
     @Override

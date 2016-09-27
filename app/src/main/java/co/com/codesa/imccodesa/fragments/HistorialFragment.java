@@ -4,8 +4,12 @@ package co.com.codesa.imccodesa.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,8 +25,10 @@ import co.com.codesa.imccodesa.model.Persona;
  */
 public class HistorialFragment extends Fragment {
     @Bind(R.id.lstHistorial)
-    ListView lstHistorial;
+    //ListView lstHistorial;
+    GridView lstHistorial;
     ArrayList<Persona> listPersonas;
+    private boolean showAsList;
 
     public HistorialFragment() {
         // Required empty public constructor
@@ -35,7 +41,9 @@ public class HistorialFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_historial, container, false);
 
         ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
 
+        showAsList = true;
         listPersonas = new ArrayList<>(0);
         listPersonas.add(new Persona("Persona 1", 167, 60, 15));
         listPersonas.add(new Persona("Persona 2", 170, 70, 22));
@@ -47,4 +55,26 @@ public class HistorialFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.historial, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.show_as) {
+            //se esta mostrando como lista, cambia a grid
+            if(showAsList) {
+                showAsList = false;
+                item.setIcon(R.drawable.ic_action_grid);
+            } else {
+                //se esta mostrando como grid, cambia a lista
+                showAsList = true;
+                item.setIcon(R.drawable.ic_action_list);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
