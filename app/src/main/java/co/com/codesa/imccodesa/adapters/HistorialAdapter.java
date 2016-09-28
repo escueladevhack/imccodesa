@@ -2,6 +2,7 @@ package co.com.codesa.imccodesa.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import co.com.codesa.imccodesa.model.Persona;
 /**
  * Created by krlosf on 24/09/16.
  */
-public class HistorialAdapter extends BaseAdapter {
+public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.HistorialHolder> {
     private ArrayList<Persona> dataSource;
     private Context context;
 
@@ -28,14 +29,39 @@ public class HistorialAdapter extends BaseAdapter {
         this.dataSource = dataSource;
     }
 
+    /**
+     * 1. Infla el layout sobre el cual se van a mostrar los datos
+     * 2. Crear una instancia del holder con la vista inflada
+     * */
     @Override
-    public int getCount() {
-        return dataSource.size();
+    public HistorialAdapter.HistorialHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater)context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //Paso 1
+        View view = inflater.inflate(R.layout.view_item_historial, parent, false);
+
+        //Paso 2
+        HistorialHolder historialHolder = new HistorialHolder(view);
+
+        return historialHolder;
     }
 
+    /**
+     * 1. Obtiene la objeto del datasource en con el indice position
+     * 2. Muestra los datos del obteto usando viewHolder
+     * */
     @Override
-    public Object getItem(int i) {
-        return dataSource.get(i);
+    public void onBindViewHolder(HistorialAdapter.HistorialHolder holder, int position) {
+        //Paso 1
+        Persona persona = dataSource.get(position);
+
+        //Paso 2
+        holder.itemView.setBackgroundColor(position%2==0 ? Color.LTGRAY: Color.WHITE);
+        holder.lblNombre.setText(persona.getNombre());
+        holder.lblAltura.setText(String.valueOf(persona.getAltura()));
+        holder.lblPeso.setText(String.valueOf(persona.getPeso()));
+        holder.lblImc.setText(String.valueOf(persona.getImc()));
     }
 
     @Override
@@ -44,25 +70,11 @@ public class HistorialAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater)context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        view = inflater.inflate(R.layout.view_item_historial, null);
-        view.setBackgroundColor(i%2==0 ? Color.LTGRAY: Color.WHITE);
-        //TextView lblNombre = (TextView)view.findViewById(R.id.lblNombre);
-        //TextView lblAltura = (TextView)view.findViewById(R.id.lblAltura);
-        //TextView lblPeso = (TextView)view.findViewById(R.id.lblPeso);
-        //TextView lblImc = (TextView)view.findViewById(R.id.lblImc);
-
-        Persona persona = (Persona) getItem(i);
-        HistorialHolder historialHolder = new HistorialHolder(view, persona);
-
-        return view;
+    public int getItemCount() {
+        return dataSource.size();
     }
 
-
-    static class HistorialHolder {
+    public static class HistorialHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.lblNombre)
         TextView lblNombre;
         @Bind(R.id.lblAltura)
@@ -72,13 +84,18 @@ public class HistorialAdapter extends BaseAdapter {
         @Bind(R.id.lblImc)
         TextView lblImc;
 
-        public HistorialHolder(View view, Persona persona) {
+        public HistorialHolder(View view) {
+            super(view);
+
+            //Infla los componentes donde se va a mostrar la informacion
             ButterKnife.bind(this, view);
 
-            lblNombre.setText(persona.getNombre());
-            lblAltura.setText(String.valueOf(persona.getAltura()));
-            lblPeso.setText(String.valueOf(persona.getPeso()));
-            lblImc.setText(String.valueOf(persona.getImc()));
+            //TextView lblNombre = (TextView)view.findViewById(R.id.lblNombre);
+            //TextView lblAltura = (TextView)view.findViewById(R.id.lblAltura);
+            //TextView lblPeso = (TextView)view.findViewById(R.id.lblPeso);
+            //TextView lblImc = (TextView)view.findViewById(R.id.lblImc);
         }
+
+
     }
 }
