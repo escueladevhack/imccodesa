@@ -21,7 +21,6 @@
         <activity
             android:name=".activities.ListaActivity"
             android:label="@string/title_activity_lista"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize">
 
         </activity>

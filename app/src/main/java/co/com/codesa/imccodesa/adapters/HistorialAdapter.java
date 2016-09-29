@@ -57,7 +57,7 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.Hist
         Persona persona = dataSource.get(position);
 
         //Paso 2
-        holder.itemView.setBackgroundColor(position%2==0 ? Color.LTGRAY: Color.WHITE);
+        //holder.itemView.setBackgroundColor(position%2==0 ? Color.LTGRAY: Color.WHITE);
         holder.lblNombre.setText(persona.getNombre());
         holder.lblAltura.setText(String.valueOf(persona.getAltura()));
         holder.lblPeso.setText(String.valueOf(persona.getPeso()));

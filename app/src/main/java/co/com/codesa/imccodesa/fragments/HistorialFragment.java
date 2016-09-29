@@ -3,6 +3,7 @@ package co.com.codesa.imccodesa.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +49,9 @@ public class HistorialFragment extends Fragment {
 
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
+
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+        appCompatActivity.getSupportActionBar().setTitle("Historial");
 
         showAsList = true;
         listPersonas = new ArrayList<>(0);
