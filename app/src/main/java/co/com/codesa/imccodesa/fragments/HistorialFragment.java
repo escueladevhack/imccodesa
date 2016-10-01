@@ -20,7 +20,9 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import co.com.codesa.imccodesa.R;
+import co.com.codesa.imccodesa.activities.IFragmentListener;
 import co.com.codesa.imccodesa.adapters.HistorialAdapter;
 import co.com.codesa.imccodesa.model.Persona;
 
@@ -28,9 +30,10 @@ import co.com.codesa.imccodesa.model.Persona;
  * A simple {@link Fragment} subclass.
  */
 public class HistorialFragment extends Fragment {
+
+    private IFragmentListener fragmentListener;
+
     @Bind(R.id.lstHistorial)
-    //ListView lstHistorial;
-    //GridView lstHistorial;
     RecyclerView lstHistorial;
     ArrayList<Persona> listPersonas;
     private boolean showAsList;
@@ -38,7 +41,7 @@ public class HistorialFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
 
     public HistorialFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -73,6 +76,11 @@ public class HistorialFragment extends Fragment {
         return view;
     }
 
+    @OnClick(R.id.fabNuevoCalculoIMC)
+    public void clickNuevoCalculoIMC(){
+        fragmentListener.goToFragment();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -96,5 +104,9 @@ public class HistorialFragment extends Fragment {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setFragmentListener(IFragmentListener fragmentListener) {
+        this.fragmentListener = fragmentListener;
     }
 }

@@ -24,7 +24,8 @@ import co.com.codesa.imccodesa.fragments.CalculateImcFragment;
 import co.com.codesa.imccodesa.fragments.HistorialFragment;
 
 public class ListaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        IFragmentListener {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
@@ -36,20 +37,8 @@ public class ListaActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container, new CalculateImcFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-                //showUpButton(true);
-            }
-        });
+        /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();*/
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -62,7 +51,6 @@ public class ListaActivity extends AppCompatActivity
         //Mostrar por defecto la primera opcion del menu
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
         showUpButton(getSupportFragmentManager().getBackStackEntryCount() > 1);
-
 
 
         View headerView = navigationView.getHeaderView(0);
@@ -85,7 +73,7 @@ public class ListaActivity extends AppCompatActivity
             if (getSupportFragmentManager().getBackStackEntryCount() >= 2) {
                 getSupportFragmentManager().popBackStackImmediate();
                 // Change to hamburger icon if at bottom of stack
-                if(getSupportFragmentManager().getBackStackEntryCount() == 1){
+                if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
                     showUpButton(false);
                 }
             } else {
@@ -125,9 +113,17 @@ public class ListaActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
+        HistorialFragment historialFragment;
 
         if (id == R.id.nav_historial) {
-            fragment = new HistorialFragment();
+            historialFragment = new HistorialFragment();
+            historialFragment.setFragmentListener(this);
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, historialFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -139,11 +135,6 @@ public class ListaActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
 
         showUpButton(false);
         clearFragmentManagerStack();
@@ -157,7 +148,7 @@ public class ListaActivity extends AppCompatActivity
         // To keep states of ActionBar and ActionBarDrawerToggle synchronized,
         // when you enable on one, you disable on the other.
         // And as you may notice, the order for this operation is disable first, then enable - VERY VERY IMPORTANT.
-        if(show) {
+        if (show) {
             // Remove hamburger
             toggle.setDrawerIndicatorEnabled(false);
             // Show back button
@@ -166,7 +157,7 @@ public class ListaActivity extends AppCompatActivity
             // clicks are disabled i.e. the UP button will not work.
             // We need to add a listener, as in below, so DrawerToggle will forward
             // click events to this listener.
-            if(toggle.getToolbarNavigationClickListener() == null) {
+            if (toggle.getToolbarNavigationClickListener() == null) {
                 toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -187,8 +178,17 @@ public class ListaActivity extends AppCompatActivity
 
     public void clearFragmentManagerStack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStackImmediate();
         }
     }
+
+    @Override
+    public void goToFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, new CalculateImcFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }

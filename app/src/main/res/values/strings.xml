@@ -22,6 +22,10 @@
     <string name="peso">Peso</string>
     <string name="estatura">Estatura</string>
     <string name="resultado_imc">Resultado IMC</string>
-    <string name="guardar">Guardar</string>
+    <string name="guardar">Calcular</string>
     <string name="calcular_imc">Calcular IMC</string>
+
+    <string name="opcion_imagen_perfil_galeria">Galeria de Imagenes</string>
+    <string name="opcion_imagen_perfil_camara">Camara</string>
+    <string name="opcion_imagen_perfil_titulo">Selecciona</string>
 </resources>
